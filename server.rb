@@ -22,7 +22,8 @@ end
 ############################ START HERE DURING CLINIC ############################
 
 get '/floofs' do
-  ## Where my floofs at?
+  @floofs = Floof.all
+
   erb :'/floofs/index'
 end
 
@@ -31,10 +32,11 @@ get '/floofs/new' do
 end
 
 get '/floofs/:id' do
-  ## Let's hear it for the floof!
+  @floof = Floof.find(params[:id])
+  @walks = @floof.walks
 
-  ## Grab all the walkers, all the days of the week, and all of this floof's
-  ## walks too, to appease the `floofs/show.erb` gods
+  @walkers = Walker.all
+  @days = DAYS
 
   erb :'/floofs/show'
 end
@@ -42,11 +44,20 @@ end
 post '/walks' do
   ## Grab my proposed floof, walker, and day from params
 
+  @floof = Floof.find(params[:floof_id])
+  @walker = Walker.find(params[:walker_id])
+  @day = params[:day]
+
   ## Make my walk!
+  walk = Walk.new(floof: @floof, walker: @walker, day: @day)
 
   # If it is valid, redirect to the new floof's page; otherwise, stay on this one.
 
-  erb :'floofs/new'
+  if walk.save
+    redirect "/floofs/#{params[:floof_id]}"
+  else
+    erb :'floofs/new'
+  end
 end
 
 ############################ STOP HERE DURING CLINIC ############################
