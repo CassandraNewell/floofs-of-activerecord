@@ -26,9 +26,13 @@ get '/floofs' do
   erb :'/floofs/index'
 end
 
+get '/floofs/new' do
+  erb :'floofs/new'
+end
+
 get '/floofs/:id' do
   ## Let's hear it for the floof!
-  
+
   ## Grab all the walkers, all the days of the week, and all of this floof's
   ## walks too, to appease the `floofs/show.erb` gods
 
@@ -46,10 +50,6 @@ post '/walks' do
 end
 
 ############################ STOP HERE DURING CLINIC ############################
-
-get '/floofs/new' do
-  erb :'floofs/new'
-end
 
 post '/floofs' do
   floof = Floof.new(name: params[:name])
@@ -74,14 +74,14 @@ end
 get '/walkers/:walker_id' do
   @walker = Walker.find(params[:walker_id])
   @walks = @walker.walks
-  @days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  @days = DAYS
 
   erb :'/walkers/show'
 end
 
 post '/walkers' do
   walker = Walker.new(name: params[:name])
-    if walker.save == false
+    if walker.save
       flash[:message] = "Saved!"
       redirect '/walkers'
     else
