@@ -5,7 +5,6 @@ We want to create an app to help us keep track of **which floof-walker is walkin
 ## Part 1
 Create the migrations to build a schema and the models to represent the following data and object relationships:
 
-```
 #### Pups
 
 * A pup must have a name
@@ -21,10 +20,9 @@ Create the migrations to build a schema and the models to represent the followin
 * Must have a day
 * Must belong to one pup
 * Must belong to one walker
-```
 
 ## Part 2
-* Seed your development database with a Seeds file!  open up your app and poke around and make sure it works as you expect
+Seed your development database with a Seeds file!  open up your app and poke around and make sure it works as you expect
 
 ## Part 3
-  * Modify the backend to use our database for the show, index, and new pages already set up in `/app/views`
+Modify the backend to use our database for the show, index, and new pages already set up in `/app/views`
