@@ -8,12 +8,12 @@ Create the migrations to build a schema and the models to represent the followin
 ```
 #### Pups
 
-* A pup must have a unique name
+* A pup must have a name
 * A pup can have many walks
 
 #### Walkers
 
-* Must have a unique name
+* Must have a name
 * A walker can have many walks
 
 #### Walks
