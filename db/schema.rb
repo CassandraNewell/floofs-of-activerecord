@@ -15,22 +15,4 @@ ActiveRecord::Schema.define(version: 20180411144529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "floofs", force: :cascade do |t|
-    t.string "name", null: false
-    t.index ["name"], name: "index_floofs_on_name", unique: true
-  end
-
-  create_table "walkers", force: :cascade do |t|
-    t.string "name", null: false
-    t.index ["name"], name: "index_walkers_on_name", unique: true
-  end
-
-  create_table "walks", force: :cascade do |t|
-    t.bigint "floof_id"
-    t.bigint "walker_id"
-    t.string "day", null: false
-    t.index ["floof_id"], name: "index_walks_on_floof_id"
-    t.index ["walker_id"], name: "index_walks_on_walker_id"
-  end
-
 end

@@ -7,9 +7,12 @@
 
 floof1 = Floof.create(name: "Sir Geoffrey Drake Arrington")
 floof2 = Floof.create(name: "Miss Islay Mae Arrington")
+floof3 = Floof.create(name: "The Juliabeast")
 
 walker1 = Walker.create(name: "Brad")
 walker2 = Walker.create(name: "Elyse")
+walker3 = Walker.create(name: "Stella")
 
 Walk.create(floof: floof1, walker: walker2, day: "Wednesday")
 Walk.create(floof: floof2, walker: walker1, day: "Friday")
+Walk.create(floof: floof3, walker: walker3, day: "Friday")

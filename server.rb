@@ -4,6 +4,7 @@ require "pry" if development? || test?
 require 'sinatra/flash'
 set :sessions, true
 
+
 Dir[File.join(File.dirname(__FILE__), 'app', '**', '*.rb')].each do |file|
   require file
 end
@@ -12,39 +13,42 @@ configure do
   set :views, 'app/views'
 end
 
+DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
 get '/' do
   redirect '/floofs'
 end
 
+############################ START HERE DURING CLINIC ############################
+
 get '/floofs' do
-  @floofs = Floof.all
+  ## Where my floofs at?
   erb :'/floofs/index'
 end
 
-get '/floofs/new' do
-  erb :'floofs/new'
-end
-
 get '/floofs/:id' do
-  @floof = Floof.find(params[:id])
-  @walkers = Walker.all
-  @walks = @floof.walks
-  @days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  ## Let's hear it for the floof!
+  
+  ## Grab all the walkers, all the days of the week, and all of this floof's
+  ## walks too, to appease the `floofs/show.erb` gods
 
   erb :'/floofs/show'
 end
 
 post '/walks' do
-  @floof = Floof.find(params[:floof_id])
-  @walker = Walker.find(params[:walker_id])
-  @day = params[:day]
-  walk = Walk.new(floof: @floof, walker: @walker, day: @day)
+  ## Grab my proposed floof, walker, and day from params
 
-  if walk.save
-    redirect "/floofs/#{params[:floof_id]}"
-  else
-    erb :'floofs/show'
-  end
+  ## Make my walk!
+
+  # If it is valid, redirect to the new floof's page; otherwise, stay on this one.
+
+  erb :'floofs/new'
+end
+
+############################ STOP HERE DURING CLINIC ############################
+
+get '/floofs/new' do
+  erb :'floofs/new'
 end
 
 post '/floofs' do
