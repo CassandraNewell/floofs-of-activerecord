@@ -19,8 +19,6 @@ get '/' do
   redirect '/floofs'
 end
 
-############################ START HERE DURING CLINIC ############################
-
 get '/floofs' do
   @floofs = Floof.all
 
@@ -42,16 +40,11 @@ get '/floofs/:id' do
 end
 
 post '/walks' do
-  ## Grab my proposed floof, walker, and day from params
-
   @floof = Floof.find(params[:floof_id])
   @walker = Walker.find(params[:walker_id])
   @day = params[:day]
 
-  ## Make my walk!
   walk = Walk.new(floof: @floof, walker: @walker, day: @day)
-
-  # If it is valid, redirect to the new floof's page; otherwise, stay on this one.
 
   if walk.save
     redirect "/floofs/#{params[:floof_id]}"
@@ -59,8 +52,6 @@ post '/walks' do
     erb :'floofs/new'
   end
 end
-
-############################ STOP HERE DURING CLINIC ############################
 
 post '/floofs' do
   floof = Floof.new(name: params[:name])

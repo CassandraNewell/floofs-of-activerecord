@@ -5,10 +5,11 @@ We want to create an app to help us keep track of **which floof-walker is walkin
 ## Part 1
 Create the migrations to build a schema and the models to represent the following data and object relationships:
 
-#### Pups
+#### Floofs
 
-* A pup must have a name
-* A pup can have many walks
+* A floof must have a name
+* A floof can have many walks
+* A floof should be able to bark (have a bark method in the model that returns "bark")
 
 #### Walkers
 
