@@ -4,6 +4,7 @@ require "pry" if development? || test?
 require 'sinatra/flash'
 set :sessions, true
 
+
 Dir[File.join(File.dirname(__FILE__), 'app', '**', '*.rb')].each do |file|
   require file
 end
@@ -12,12 +13,15 @@ configure do
   set :views, 'app/views'
 end
 
+DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
 get '/' do
   redirect '/floofs'
 end
 
 get '/floofs' do
   @floofs = Floof.all
+
   erb :'/floofs/index'
 end
 
@@ -27,9 +31,10 @@ end
 
 get '/floofs/:id' do
   @floof = Floof.find(params[:id])
-  @walkers = Walker.all
   @walks = @floof.walks
-  @days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+  @walkers = Walker.all
+  @days = DAYS
 
   erb :'/floofs/show'
 end
@@ -38,12 +43,13 @@ post '/walks' do
   @floof = Floof.find(params[:floof_id])
   @walker = Walker.find(params[:walker_id])
   @day = params[:day]
+
   walk = Walk.new(floof: @floof, walker: @walker, day: @day)
 
   if walk.save
     redirect "/floofs/#{params[:floof_id]}"
   else
-    erb :'floofs/show'
+    erb :'floofs/new'
   end
 end
 
@@ -70,14 +76,14 @@ end
 get '/walkers/:walker_id' do
   @walker = Walker.find(params[:walker_id])
   @walks = @walker.walks
-  @days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+  @days = DAYS
 
   erb :'/walkers/show'
 end
 
 post '/walkers' do
   walker = Walker.new(name: params[:name])
-    if walker.save == false
+    if walker.save
       flash[:message] = "Saved!"
       redirect '/walkers'
     else

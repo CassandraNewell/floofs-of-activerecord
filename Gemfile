@@ -16,5 +16,5 @@ group :test do
   gem 'rspec'
   gem 'poltergeist'
   gem 'database_cleaner'
-  gem 'factory_girl'
+  gem 'factory_bot'
 end
