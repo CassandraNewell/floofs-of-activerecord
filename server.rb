@@ -20,8 +20,7 @@ get '/' do
 end
 
 get '/floofs' do
-  @floofs = Floof.all
-
+  # Code here!
   erb :'/floofs/index'
 end
 
@@ -30,42 +29,21 @@ get '/floofs/new' do
 end
 
 get '/floofs/:id' do
-  @floof = Floof.find(params[:id])
-  @walks = @floof.walks
-
-  @walkers = Walker.all
-  @days = DAYS
+  # Code here!
 
   erb :'/floofs/show'
 end
 
 post '/walks' do
-  @floof = Floof.find(params[:floof_id])
-  @walker = Walker.find(params[:walker_id])
-  @day = params[:day]
-
-  walk = Walk.new(floof: @floof, walker: @walker, day: @day)
-
-  if walk.save
-    redirect "/floofs/#{params[:floof_id]}"
-  else
-    erb :'floofs/new'
-  end
+  # Code here!
 end
 
 post '/floofs' do
-  floof = Floof.new(name: params[:name])
-    if floof.save
-      flash[:message] = "Saved!"
-      redirect "/floofs"
-    else
-      flash[:error] = "Bummer, something went wrong."
-      erb :'floofs/new'
-    end
+  # Code here!
 end
 
 get '/walkers' do
-  @walkers = Walker.all
+  # Code here!
   erb :'/walkers/index'
 end
 
@@ -74,20 +52,11 @@ get '/walkers/new' do
 end
 
 get '/walkers/:walker_id' do
-  @walker = Walker.find(params[:walker_id])
-  @walks = @walker.walks
-  @days = DAYS
+  # Code here!
 
   erb :'/walkers/show'
 end
 
 post '/walkers' do
-  walker = Walker.new(name: params[:name])
-    if walker.save
-      flash[:message] = "Saved!"
-      redirect '/walkers'
-    else
-      flash.now[:error] = "Bummer, something went wrong."
-      erb :'walkers/new'
-    end
+  # Code here!
 end
