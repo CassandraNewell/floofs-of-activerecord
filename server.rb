@@ -19,8 +19,11 @@ get '/' do
   redirect '/floofs'
 end
 
+#################### START HERE DURING CLINIC ####################
+
 get '/floofs' do
-  # Code here!
+  # Get all the floofs!
+
   erb :'/floofs/index'
 end
 
@@ -29,14 +32,24 @@ get '/floofs/new' do
 end
 
 get '/floofs/:id' do
-  # Code here!
+  # Let's hear it for the floof!
+
+  # Grab all walkers, all days of the week, and all of this floof's
+  # walks to appease the `floofs/show.erb` gods
 
   erb :'/floofs/show'
 end
 
 post '/walks' do
-  # Code here!
+  # Grab my proposed floof, walker, and day from params
+
+  # Make my walk!
+
+  # If it is valid, redirect to the new floof's page; otherwise, stay on this one
+
 end
+
+#################### STOP HERE DURING CLINIC ####################
 
 post '/floofs' do
   # Code here!
@@ -48,7 +61,7 @@ get '/walkers' do
 end
 
 get '/walkers/new' do
-  erb :'walkers/new'
+  erb :'/walkers/new'
 end
 
 get '/walkers/:walker_id' do
