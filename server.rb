@@ -45,31 +45,47 @@ post '/walks' do
 
   # Make my walk!
 
-  # If it is valid, redirect to the new floof's page; otherwise, stay on this one
+  # If it is valid, save it
 
 end
 
 #################### STOP HERE DURING CLINIC ####################
 
 post '/floofs' do
-  # Code here!
+  floof = Floof.new(name: params[:name])
+    if floof.save
+      flash[:message] = "Saved!"
+      redirect "/floofs"
+    else
+      flash[:error] = "Bummer, something went wrong."
+      erb :'floofs/new'
+    end
 end
 
 get '/walkers' do
-  # Code here!
+  @walkers = Walker.all
   erb :'/walkers/index'
 end
 
 get '/walkers/new' do
-  erb :'/walkers/new'
+  erb :'walkers/new'
 end
 
 get '/walkers/:walker_id' do
-  # Code here!
+  @walker = Walker.find(params[:walker_id])
+  @walks = @walker.walks
+  @days = DAYS
 
   erb :'/walkers/show'
 end
 
 post '/walkers' do
-  # Code here!
+  walker = Walker.new(name: params[:name])
+    if walker.save
+      flash[:message] = "Saved!"
+      redirect '/walkers'
+    else
+      flash.now[:error] = "Bummer, something went wrong."
+      erb :'walkers/new'
+    end
 end
