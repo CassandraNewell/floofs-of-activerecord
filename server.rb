@@ -45,7 +45,7 @@ post '/walks' do
 
   # Make my walk!
 
-  # If it is valid, save it
+  # If it is valid, save it. If not, show an error message
 
 end
 
