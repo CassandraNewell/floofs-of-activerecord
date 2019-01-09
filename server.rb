@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require "pry" if development? || test?
 require 'sinatra/flash'
+require 'sinatra/reloader'
 set :sessions, true
 
 
@@ -22,8 +23,7 @@ end
 #################### START HERE DURING CLINIC ####################
 
 get '/floofs' do
-  # Get all the floofs!
-
+  @floofs = Floof.all
   erb :'/floofs/index'
 end
 
@@ -32,21 +32,33 @@ get '/floofs/new' do
 end
 
 get '/floofs/:id' do
-  # Let's hear it for the floof!
+  @floof = Floof.find(params[:id])
+  @walks = @floof.walks
+  @walkers = Walker.all
 
-  # Grab all walkers, all days of the week, and all of this floof's
-  # walks to appease the `floofs/show.erb` gods
+  @days = DAYS
 
   erb :'/floofs/show'
 end
 
 post '/walks' do
-  # Grab my proposed floof, walker, and day from params
+  @floof = Floof.find(params[:floof_id])
+  walker = Walker.find(params[:walker_id])
+  day = params[:day]
 
-  # Make my walk!
+  walk = Walk.new(floof: @floof, walker: walker, day: day)
 
-  # If it is valid, save it. If not, show an error message
+  walk.day = nil
 
+  if walk.save
+    redirect to "/floofs/#{floof.id}"
+  else
+    @walks = @floof.walks
+    @walkers = Walker.all
+    @days = DAYS
+    @error = walk.errors.full_messages.join("\n")
+    erb :'floofs/show'
+  end
 end
 
 #################### STOP HERE DURING CLINIC ####################

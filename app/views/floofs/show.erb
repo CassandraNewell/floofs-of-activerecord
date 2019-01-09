@@ -2,7 +2,7 @@
 
 
 <div class="details">
-  <div> @error </div>
+  <div> <%= @error %> </div>
   <h3>Walks for this floof:</h3>
   <ul>
     <% @walks.each do |walk| %>
@@ -16,6 +16,7 @@
 
 <div class="grid-container">
   <div class="grid-x grid-padding-x">
+
     <form id='form' class='medium-6 columns callout' action="/walks" method="post">
       <h3>Add Walk</h3>
       <input name="floof_id" type="hidden" value="<%=@floof.id%>"/>
@@ -35,5 +36,6 @@
       </label>
       <input type='submit' value="Submit"></input>
     </form>
+
   </div>
 </div>
