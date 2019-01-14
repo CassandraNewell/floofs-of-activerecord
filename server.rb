@@ -48,7 +48,8 @@ post '/walks' do
 
   walk = Walk.new(floof: @floof, walker: walker, day: day)
 
-  walk.day = nil
+  # Uncomment the line below to test the fail path (because the form uses dropdowns with default values, it's impossible to create an invalid walk through the UI)
+  # walk.day = nil
 
   if walk.save
     redirect to "/floofs/#{floof.id}"
